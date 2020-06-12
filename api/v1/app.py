@@ -3,7 +3,10 @@
 from models import storage
 from api.v1.views import app_views
 from os import environ, getenv
-from flask import Flask, render_template, make_response, jsonify
+from flask import Flask, render_template, make_response, jsonify, redirect, url_for, request, session
+from flask_mysqldb import MySQL
+import MySQLdb.cursors
+import re
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -28,6 +31,6 @@ def not_found(error):
 if __name__ == '__main__':
     if getenv('HMCR_API_HOST'):
         app.run(host=getenv('HMCR_API_HOST'),
-                port=getenv('HMCR_API_PORT'), threaded=True)
+                port=getenv('HMCR_API_PORT'), threaded=True, debug=True)
     else:
-        app.run(host='0.0.0.0', threaded=True)  
+        app.run(host='0.0.0.0', threaded=True, debug=True)  
