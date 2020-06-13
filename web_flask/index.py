@@ -10,9 +10,13 @@ app = Flask(__name__)
 
 @app.route('/index')
 def index():
-    #recipes = request.get(127.0.0.1:5000/recipes, data=dict)
     recipes_list = []
-    return render_template('index.html')
+    recipes = "nombre receta"
+    description = "Breve descripcion de la receta"
+    user = ["Fulanito", "Mario", "Joaquin", "Luz"]
+    return render_template('index.html', recipes=recipes,
+                            description=description,
+                            user=user)
 
 @app.route('/recipes')
 def recipes():

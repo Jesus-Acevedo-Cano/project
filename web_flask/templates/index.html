@@ -25,6 +25,8 @@
 
 <body class="bg-light image-bg">
   <!--Logo section-->
+  <!--acomodar condicional para mostrar navbar segun loguin o no-->
+  {% if user == "" %}
   <nav class="navbar navbar-expand-lg shadow navbar-light bg-white">
     <div class="container">
       <div class="d-flex align-items-center">
@@ -144,6 +146,63 @@
       </div>
     </div>
   </nav>
+  {%else%}
+  <nav class="navbar navbar-expand-lg shadow navbar-light bg-white">
+    <div class="container">
+      <div class="d-flex align-items-center">
+        <a class="logo" href="index.html"><img class="logo-img" src="../static/images/logo.png" alt="logo">HomeCooker</a>
+      </div>
+      <!-- form section -->
+            <!-- Button trigger modal -->
+            <div class="d-flex justify-content-end">
+            <div class="d-flex align-items-right">
+              <button type="button" class="hc-btn-primary" data-toggle="modal" data-target="#subir_receta">
+                Subir receta
+              </button>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="subir_receta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <!-- Recipe form -->
+                      <div class="card card-body card-body-color">
+                        <form>
+                          <small id="campo-obligatorio" class="form-text text-muted py-3">Campo obligatorio*</small>
+                          <input type="text" id="textInput" class="form-control mb-2" placeholder="Nombre de receta*" required>
+                          <textarea id="textarea" class="form-control mb-2" placeholder="Descripción*" required></textarea>
+                          <textarea id="textarea" class="form-control mb-2" placeholder="Ingredientes* separados por coma(ejm: Azucar, flores, muchos colores)" required></textarea>
+                          <textarea id="textarea" class="form-control mb-2" placeholder="Preparación*" required></textarea>
+                          <input type="text" id="textInput" class="form-control mb-2" placeholder="Url video en youtube">
+                          <label for="textInput">Foto de la receta*</label>
+                          <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-image"></i></span>
+                            </div>
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="fileInput" aria-describedby="fileInput"
+                                required>
+                              <label class="custom-file-label" for="fileInput"></label>
+                            </div>
+                          </div>
+                          <button class="btn hc-btn-primary btn-block my-4" type="submit">Guardar</button>
+                        </form>
+                      </div>
+                    </div>
+                    <!-- /recipe form -->
+                  </div>
+                </div>
+              </div>
+      <!-- /form section -->
+
+      <!-- user avatar -->
+            <div class="col">
+              <img class="photo-profile" src="../static/images/logo.png" width="40" height="40" alt="{{user}}">
+            </div>
+          </div>
+        </div>
+      </nav>
+  {%endif%}
 
   <!-- Page Content -->
   <div class="container">
@@ -179,19 +238,19 @@
 
     <!-- Page Features -->
     <div class="row text-center">
-
+      <!-- recipes preview block -->
+      {% for i in range(0,4) %}
       <div class="col-lg-3 col-md-6 mb-4">
         <div class="card h-100">
           <img class="card-img-top" src="https://source.unsplash.com/SxTlB4fde9Q/500x325" alt="">
           <div class="card-body">
-            <h4 class="card-title">{ recipe.name }</h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente,
-              tempore debitis beatae culpa natus architecto.</p>
+            <h4 class="card-title">{{ recipes }}</h4>
+            <p class="card-text">{{ description }}</p>
           </div>
           <div class="card-footer">
             <div class="description rgba-stylish-light text-yellow">
               <div class="subtitle">
-                <h6>Por Pepito Perez</h6>
+                <h6>Por {{ user[i] }}</h6>
               </div>
               <div class="more icon-color">
                 <div class="stars text-center mr-2  justify-content-center">
@@ -204,82 +263,7 @@
           </div>
         </div>
       </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="https://source.unsplash.com/Yr4n8O_3UPc/500x325" alt="">
-          <div class="card-body">
-            <h4 class="card-title">{ recipe.name }</h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente,
-              tempore debitis beatae culpa natus architecto.</p>
-          </div>
-          <div class="card-footer">
-            <div class="description rgba-stylish-light text-yellow">
-              <div class="subtitle">
-                <h6>Por Pepito Perez</h6>
-              </div>
-              <div class="more icon-color">
-                <div class="stars text-center mr-2  justify-content-center">
-                  <i class="fas fa-star-half-alt fas-sm ">4.5</i>
-                  <i class="far fa-heart fas-sm red"></i>
-                </div>
-              </div>
-            </div>
-            <a href="recipes" class="hc-btn-primary">Ver receta</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="https://source.unsplash.com/_0JpjeqtSyg/500x325" alt="">
-          <div class="card-body">
-            <h4 class="card-title">{ recipe.name }</h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente,
-              tempore debitis beatae culpa natus architecto.</p>
-          </div>
-          <div class="card-footer">
-            <div class="description rgba-stylish-light text-yellow">
-              <div class="subtitle">
-                <h6>Por Pepito Perez</h6>
-              </div>
-              <div class="more icon-color">
-                <div class="stars text-center mr-2  justify-content-center">
-                  <i class="fas fa-star fas-sm">5.0</i>
-                  <i class="fas fa-heart fas-sm red"></i>
-                </div>
-              </div>
-            </div>
-            <a href="recipes" class="hc-btn-primary">Ver receta</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="https://source.unsplash.com/jivmv9hE6bM/500x325" alt="">
-          <div class="card-body">
-            <h4 class="card-title">{ recipe.name }</h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente,
-              tempore debitis beatae culpa natus architecto.</p>
-          </div>
-          <div class="card-footer">
-            <div class="description rgba-stylish-light text-yellow">
-              <div class="subtitle">
-                <h6>Por Pepito Perez</h6>
-              </div>
-              <div class="more icon-color">
-                <div class="stars text-center mr-2  justify-content-center">
-                  <i class="far fa-star fas-sm">0.0</i>
-                  <i class="far fa-heart fas-sm red"></i>
-                </div>
-              </div>
-            </div>
-            <a href="recipes" class="hc-btn-primary">Ver receta</a>
-          </div>
-        </div>
-      </div>
-
+      {% endfor %}
     </div>
     <!-- /.row -->
   </div>
