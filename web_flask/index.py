@@ -20,7 +20,12 @@ def index():
 
 @app.route('/recipes')
 def recipes():
-    return render_template('recipes.html')
+    recipes = "nombre receta"
+    description = "Breve descripcion de la receta"
+    user = ["Fulanito", "Mario", "Joaquin", "Luz"]
+    return render_template('recipes.html', recipes=recipes,
+                            description=description,
+                            user=user)
 
 
 if __name__ == '__main__':
