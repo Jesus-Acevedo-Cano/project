@@ -22,10 +22,13 @@ def index():
 def recipes():
     recipes = "nombre receta"
     description = "Breve descripcion de la receta"
+    ingredients = "1 huevo, 5 torrillas, leche, sal, azucar"
+    preparation = "Breve descripcion de la preparcion receta"
     user = ["Fulanito", "Mario", "Joaquin", "Luz"]
     return render_template('recipes.html', recipes=recipes,
                             description=description,
-                            user=user)
+                            user=user, ingredients=ingredients,
+                            preparation=preparation)
 
 
 if __name__ == '__main__':
