@@ -3,8 +3,9 @@ from models.user import User
 from models.recipe import Recipe
 from models.review import Review
 from os import environ, getenv
-from flask import Flask, render_template, redirect, url_for, request, session
+from flask import Flask, request, render_template, redirect, url_for, session
 from flask_mysqldb import MySQL
+import requests
 
 app = Flask(__name__)
 
@@ -20,16 +21,10 @@ def index():
 
 @app.route('/recipes')
 def recipes():
-    recipes = "nombre receta"
-    description = "Breve descripcion de la receta"
-    ingredients = "1 huevo, 5 torrillas, leche, sal, azucar"
-    preparation = "Breve descripcion de la preparcion receta"
-    user = ["Fulanito", "Mario", "Joaquin", "Luz"]
-    return render_template('recipes.html', recipes=recipes,
-                            description=description,
-                            user=user, ingredients=ingredients,
-                            preparation=preparation)
-
+    response = requests.get(url="http://127.0.0.1:5000/api/v1/recipes/")
+    params = response.json()
+    print(params)
+    return render_template('recipes.html', params=params)
 
 if __name__ == '__main__':
     if getenv('HMCR_API_HOST'):

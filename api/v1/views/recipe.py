@@ -2,17 +2,24 @@
 from models.recipe import Recipe
 from models import storage
 from api.v1.views import app_views
-from flask import abort, jsonify, make_response, request
+from flask import abort, jsonify, make_response, request, render_template
 
 @app_views.route("/recipes", methods=['GET'], strict_slashes=False)
 def get_recipes():
     """ function that gets all the recipes """
-    recipes = []
+    recipes = [
+        {
+            'recipes': "nombre receta",
+            'description': "Breve descripcion de la receta",
+            'ingredients': "1 huevo, 5 torrillas, leche, sal, azucar",
+            'preparation': "Breve descripcion de la preparcion receta",
+            'user': ["Fulanito", "Mario", "Joaquin", "Luz"]
+        }
+    ]
     all_ = storage.all(Recipe).values()
     for value in all_:
         recipes.append(value.to_dict())
     return jsonify(recipes)
-
 
 @app_views.route("/recipes/<recipe_id>", methods=['GET'], strict_slashes=False)
 def recipe_by_id(recipe_id):

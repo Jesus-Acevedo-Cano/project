@@ -235,6 +235,9 @@
                 Preparación
               </h5>
               <p class="text-justify">{{ preparation }}</p>
+              {% for dict in params%}
+              <code>{{dict.description}}</code>
+              {%endfor%}
 
             </div>
             <div class="row iconos">
